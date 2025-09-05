@@ -1,18 +1,19 @@
-from flask import Flask
-# Añade el método jsonify a tu importación de Flask
+# Añade el método jsonify a tu importación de Flask y el request
 from flask import Flask , jsonify, request
 
 
-app = Flask(__name__)
+app = Flask(__name__)# instanciar flask
 
 todos = [
     { "label": "My first task", "done": False },
     { "label": "My second task", "done": False }
 ]
 
-@app.route('/myroute', methods=['GET'])
+@app.route('/', methods=['GET'])
 def hello_world():
-    return 'Hello World!'
+    return'''
+    <h1 style="text-align: center; margin-top: 2;">Hello World!</h1>
+    '''
 
 
 
@@ -35,7 +36,7 @@ def delete_todo(position):
     try:
         # Eliminamos el elemento por índice
         deleted = todos.pop(position)
-        return jsonify(todos)
+        return jsonify(f"el usuario eliminado exitosamente es :{deleted}"),201
     
     except IndexError:
         return jsonify({"error": "No existe esa posición"}), 404
