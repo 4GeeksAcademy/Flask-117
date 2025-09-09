@@ -7,7 +7,7 @@ app = Flask(__name__)# instanciar flask
 todos = [
     { "label": "My first task", "done": False },
     { "label": "My second task", "done": False }
-]
+        ]
 
 @app.route('/', methods=['GET'])
 def hello_world():
@@ -26,10 +26,10 @@ def get_todos():
 @app.route('/todos', methods=['POST'])
 def add_new_todo():
     #recordar que hay que importr request from Flask
-    request_body = request.json
-    todos.append(request_body)
-    print("Incoming request with the following body", request_body)
-    return todos
+    task_emviada = request.get_json()
+    todos.append(task_emviada)
+    print("Incoming request with the following body",task_emviada)
+    return jsonify(todos)
 
 @app.route('/todos/<int:position>', methods=['DELETE'])
 def delete_todo(position):
